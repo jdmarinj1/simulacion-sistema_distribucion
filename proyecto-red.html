@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyecto Red de Distribución · 4100730 · UNAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0b0f13;--panel:#12181e;--line:#2a333e;--line2:#39434f;--text:#E7ECF1;--dim:#9AA6B2;--mut:#6C7885;--unal:#00693C;--accent:#F2A63B}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--ink);color:var(--text);overflow:hidden}
+  .app{display:flex;flex-direction:column;height:100vh;height:100dvh}
+  header{display:flex;align-items:center;gap:14px;padding:8px 16px;background:linear-gradient(180deg,#0f151b,#0b1015);border-bottom:1px solid var(--line);flex:0 0 auto}
+  .escudo{width:30px;height:30px;border-radius:6px;border:1px dashed var(--line2);display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:8px}
+  .brand h1{font-family:'Space Grotesk';font-size:14.5px;font-weight:600;line-height:1.1}
+  .brand .sub{font-size:10.5px;color:var(--dim)}
+  .brand .accent{color:var(--accent)}
+  nav{display:flex;gap:4px;padding:6px 12px;background:#0e141a;border-bottom:1px solid var(--line);flex:0 0 auto;flex-wrap:wrap}
+  nav button{font-family:'IBM Plex Mono';font-size:12px;color:var(--dim);background:transparent;border:1px solid transparent;border-radius:8px 8px 0 0;padding:8px 15px;cursor:pointer;border-bottom:2px solid transparent}
+  nav button:hover{color:var(--text)}
+  nav button[aria-selected="true"]{color:#fff;background:var(--panel);border-color:var(--line);border-bottom-color:var(--accent)}
+  .stage{flex:1 1 auto;min-height:0;position:relative;background:var(--ink)}
+  .view{position:absolute;inset:0;display:none}
+  .view.active{display:block}
+  iframe{width:100%;height:100%;border:0;display:block;background:var(--ink)}
+  /* Inicio */
+  .home{position:absolute;inset:0;overflow-y:auto;padding:26px 22px}
+  .home-in{max-width:1000px;margin:0 auto}
+  .home h2{font-family:'Space Grotesk';font-size:20px;font-weight:600;margin-bottom:6px}
+  .home p.lead{color:var(--dim);font-size:13.5px;line-height:1.55;margin-bottom:20px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:9px}
+  .card h3{font-family:'Space Grotesk';font-size:15px;font-weight:600}
+  .card p{font-size:12.5px;color:var(--dim);line-height:1.5;flex:1 1 auto}
+  .card ul{margin:0 0 0 16px;font-size:11.5px;color:var(--mut);line-height:1.5}
+  .card button{align-self:flex-start;font-family:'IBM Plex Mono';font-size:12px;background:var(--unal);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer}
+  .note{margin-top:20px;font-size:11.5px;color:var(--mut);line-height:1.55;border-top:1px solid var(--line);padding-top:14px}
+  .spin{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--mut);font-family:'IBM Plex Mono';font-size:12px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="escudo">UNAL</div>
+    <div class="brand">
+      <h1>Proyecto <span class="accent">Red de Distribución</span></h1>
+      <div class="sub">Sistemas de Distribución · 4100730 · UNAL — Sede Manizales</div>
+    </div>
+  </header>
+
+  <nav id="tabs" role="tablist">
+    <button role="tab" data-view="home" aria-selected="true">Inicio</button>
+    <button role="tab" data-view="fisico" aria-selected="false">Vista 3D física</button>
+    <button role="tab" data-view="planta" aria-selected="false">Planta · convenciones</button>
+    <button role="tab" data-view="smart" aria-selected="false">SmartGrid · autorreparación</button>
+  </nav>
+
+  <div class="stage">
+    <div class="view active" id="v-home">
+      <div class="home"><div class="home-in">
+        <h2>Vistas del proyecto</h2>
+        <p class="lead">Un mismo modelo de red de distribución, explorable desde varias representaciones. Cada vista abre en su propio entorno; elige una pestaña arriba o una tarjeta abajo.</p>
+        <div class="cards">
+          <div class="card">
+            <h3>Vista 3D física</h3>
+            <p>El modelo físico navegable con simulación cualitativa de energización, coordinación de protecciones y eventos.</p>
+            <ul>
+              <li>Botones <b>Planta</b> y <b>Perfil</b> (arriba a la derecha): vistas cenital y de elevación.</li>
+              <li>Panel <b>unifilar</b> IEEE/ANSI en el centro, sincronizado con el 3D.</li>
+              <li>Recorrido en <b>primera persona</b>, maniobras, fallas, rayo y caída de árbol.</li>
+            </ul>
+            <button data-go="fisico">Abrir vista 3D</button>
+          </div>
+          <div class="card">
+            <h3>Planta · convenciones</h3>
+            <p>Plano cenital esquemático sobre la traza física, con símbolos IEEE/ANSI, red aérea y subterránea, ductos, cámaras y edificaciones, más su recuadro de convenciones.</p>
+            <button data-go="planta">Abrir planta</button>
+          </div>
+          <div class="card">
+            <h3>SmartGrid · autorreparación</h3>
+            <p>Unifilar de cinco alimentadores (reproducción del esquema S&amp;C) con la operación de autorreparación: aislar la falla y restaurar desde alimentadores vecinos. Conserva la operación de los fusibles.</p>
+            <button data-go="smart">Abrir SmartGrid</button>
+          </div>
+        </div>
+        <div class="note">
+          Nota de uso: mantén los cuatro archivos en la misma carpeta (esta página y los tres <code>.html</code> de las vistas). Cada vista se carga la primera vez que la abres. Para el recorrido en primera persona, el navegador pedirá permiso de bloqueo de puntero dentro de la vista 3D.
+        </div>
+      </div></div>
+    </div>
+    <div class="view" id="v-fisico"><div class="spin" data-spin>Cargando vista 3D…</div></div>
+    <div class="view" id="v-planta"><div class="spin" data-spin>Cargando planta…</div></div>
+    <div class="view" id="v-smart"><div class="spin" data-spin>Cargando SmartGrid…</div></div>
+  </div>
+</div>
+
+<script>
+const SRC={
+  fisico:{file:'red-distribucion-sim.html',allow:'pointer-lock; fullscreen; autoplay'},
+  planta:{file:'planta-convenciones.html',allow:''},
+  smart:{file:'smartgrid-selfhealing.html',allow:'autoplay'}
+};
+const loaded={};
+function ensureFrame(view){
+  if(loaded[view]||view==='home')return;
+  const cont=document.getElementById('v-'+view);const spin=cont.querySelector('[data-spin]');
+  const f=document.createElement('iframe');
+  f.setAttribute('title',view);
+  if(SRC[view].allow)f.setAttribute('allow',SRC[view].allow);
+  f.addEventListener('load',()=>{if(spin)spin.style.display='none';});
+  f.addEventListener('error',()=>{if(spin)spin.textContent='No se pudo cargar '+SRC[view].file+' (debe estar en la misma carpeta).';});
+  f.src=SRC[view].file;
+  cont.appendChild(f);loaded[view]=true;
+}
+function select(view){
+  document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-selected',b.dataset.view===view));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='v-'+view));
+  ensureFrame(view);
+}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>select(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>select(b.dataset.go)));
+</script>
+</body>
+</html>
